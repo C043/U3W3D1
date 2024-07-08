@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Job from "./Job";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const CompanySearchResults = () => {
-  const [jobs, setJobs] = useState([]);
+  /*   const [jobs, setJobs] = useState([]);
+   */
+
+  const jobs = useSelector(state => state.companyJobs.content);
+  const dispatchJobs = useDispatch();
+
   const params = useParams();
 
   const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?company=";
@@ -19,7 +25,7 @@ const CompanySearchResults = () => {
       const response = await fetch(baseEndpoint + params.company);
       if (response.ok) {
         const { data } = await response.json();
-        setJobs(data);
+        dispatchJobs({ type: "COMPANY_JOBS", payload: data });
       } else {
         alert("Error fetching results");
       }
