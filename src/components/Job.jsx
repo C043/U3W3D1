@@ -11,27 +11,27 @@ const Job = ({ data }) => {
   console.log(location);
   return (
     <Row className="mx-0 mt-3 p-3" style={{ border: "1px solid #00000033", borderRadius: 4 }}>
-      <Col xs={3}>
+      <Col xs={3} className=" border-end">
         <div className="d-flex gap-2 align-items-center">
           <Link to={`/${data.company_name}`}>{data.company_name}</Link>
-          {location.pathname !== "/favorites" ? (
-            favorites.includes(data) ? (
+          {location.pathname === "/" &&
+            (favorites.includes(data) ? (
               <StarFill
                 type="button"
-                className="flex-shrink-0"
+                className="ms-auto flex-shrink-0"
                 onClick={() => removeFavorite({ type: "REMOVE_FROM_FAVORITES", payload: data._id })}
               />
             ) : (
               <Star
                 type="button"
-                className="flex-shrink-0"
+                className="ms-auto flex-shrink-0"
                 onClick={() => addToFavorites({ type: "ADD_TO_FAVORITES", payload: data })}
               />
-            )
-          ) : (
+            ))}
+          {location.pathname === "/favorites" && (
             <Trash
               type="button"
-              className="flex-shrink-0"
+              className="ms-auto flex-shrink-0"
               onClick={() => removeFavorite({ type: "REMOVE_FROM_FAVORITES", payload: data._id })}
             />
           )}
