@@ -5,9 +5,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 const CompanySearchResults = () => {
-  /*   const [jobs, setJobs] = useState([]);
-   */
-
   const jobs = useSelector(state => state.companyJobs.content);
   const dispatchJobs = useDispatch();
 

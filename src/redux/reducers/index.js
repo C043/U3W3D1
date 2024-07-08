@@ -8,6 +8,9 @@ const initialState = {
   companyJobs: {
     content: [],
   },
+  favorites: {
+    content: [],
+  },
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -34,6 +37,22 @@ const mainReducer = (state = initialState, action) => {
         companyJobs: {
           ...state.companyJobs,
           content: action.payload,
+        },
+      };
+    case "ADD_TO_FAVORITES":
+      return {
+        ...state,
+        favorites: {
+          ...state.favorites,
+          content: [...state.favorites.content, action.payload],
+        },
+      };
+    case "REMOVE_FROM_FAVORITES":
+      return {
+        ...state,
+        favorites: {
+          ...state.favorites,
+          content: state.favorites.content.filter(favorites => favorites._id !== action.payload),
         },
       };
     default:

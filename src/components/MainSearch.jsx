@@ -1,6 +1,7 @@
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Job from "./Job";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const MainSearch = () => {
   const query = useSelector(state => state.query.content);
@@ -41,6 +42,9 @@ const MainSearch = () => {
           <Form onSubmit={handleSubmit}>
             <Form.Control type="search" value={query} onChange={handleChange} placeholder="type and press Enter" />
           </Form>
+        </Col>
+        <Col xs="10" className="mx-auto mt-3">
+          <Link to={"/favorites"}>Favorite companies</Link>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
           {jobs.map(jobData => (
