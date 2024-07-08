@@ -1,11 +1,12 @@
 import { Row, Col } from "react-bootstrap";
-import { Star, Trash } from "react-bootstrap-icons";
-import { useDispatch } from "react-redux";
+import { Star, StarFill, Trash } from "react-bootstrap-icons";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 const Job = ({ data }) => {
   const addToFavorites = useDispatch();
   const removeFavorite = useDispatch();
+  const favorites = useSelector(state => state.favorites.content);
   const location = useLocation();
   console.log(location);
   return (
@@ -14,11 +15,19 @@ const Job = ({ data }) => {
         <div className="d-flex gap-2 align-items-center">
           <Link to={`/${data.company_name}`}>{data.company_name}</Link>
           {location.pathname !== "/favorites" ? (
-            <Star
-              type="button"
-              className=" flex-shrink-0"
-              onClick={() => addToFavorites({ type: "ADD_TO_FAVORITES", payload: data })}
-            />
+            favorites.includes(data) ? (
+              <StarFill
+                type="button"
+                className="flex-shrink-0"
+                onClick={() => removeFavorite({ type: "REMOVE_FROM_FAVORITES", payload: data._id })}
+              />
+            ) : (
+              <Star
+                type="button"
+                className="flex-shrink-0"
+                onClick={() => addToFavorites({ type: "ADD_TO_FAVORITES", payload: data })}
+              />
+            )
           ) : (
             <Trash
               type="button"
